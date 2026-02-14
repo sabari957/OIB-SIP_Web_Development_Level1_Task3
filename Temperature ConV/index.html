@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <input id="temperature" type="number" placeholder="Enter temperature">
+        <div class="unit-selector">
+            <input type="radio" id="celsius" name="unit" value="celsius" checked>
+            <label for="celsius">Celsius</label>
+            <input type="radio" id="fahrenheit" name="unit" value="fahrenheit">
+            <label for="fahrenheit">Fahrenheit</label>
+            <input type="radio" id="kelvin" name="unit" value="kelvin">
+            <label for="kelvin">Kelvin</label>
+        </div>
+        <button id="convert-btn">Convert</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const temperatureInput = document.getElementById('temperature');
+        const unitRadios = document.querySelectorAll('input[name="unit"]');
+        const convertBtn = document.getElementById('convert-btn');
+        const resultDiv = document.getElementById('result');
+
+        convertBtn.addEventListener('click', () => {
+            const temperature = parseFloat(temperatureInput.value);
+            if (isNaN(temperature)) {
+                resultDiv.textContent = 'Please enter a valid number';
+                return;
+            }
+
+            let unit;
+            unitRadios.forEach(radio => {
+                if (radio.checked) unit = radio.value;
+            });
+
+            let result;
+            let resultUnit;
+
+            switch (unit) {
+                case 'celsius':
+                    result = {
+                        fahrenheit: (temperature * 9/5) + 32,
+                        kelvin: temperature + 273.15
+                    };
+                    resultDiv.textContent = `${temperature}°C is equal to ${result.fahrenheit.toFixed(2)}°F and ${result.kelvin.toFixed(2)}K`;
+                    break;
+                case 'fahrenheit':
+                    result = {
+                        celsius: (temperature - 32) * 5/9,
+                        kelvin: (temperature - 32) * 5/9 + 273.15
+                    };
+                    resultDiv.textContent = `${temperature}°F is equal to ${result.celsius.toFixed(2)}°C and ${result.kelvin.toFixed(2)}K`;
+                    break;
+                case 'kelvin':
+                    result = {
+                        celsius: temperature - 273.15,
+                        fahrenheit: (temperature - 273.15) * 9/5 + 32
+                    };
+                    resultDiv.textContent = `${temperature}K is equal to ${result.celsius.toFixed(2)}°C and ${result.fahrenheit.toFixed(2)}°F`;
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
