@@ -20,7 +20,7 @@ A simple web-based temperature converter that converts between Celsius, Fahrenhe
 * `style.css`: CSS styles for the converter
 
 ## Live Demo
-[Insert live demo link or screenshot]
+http://127.0.0.1:5500/index.html
 
 ## Contributing
 Feel free to fork and contribute to this project!
